@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintGo Campus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>PrintGo Campus</h1>
+  <p>Jasa Print Online Mahasiswa</p>
+
+  <form id="printForm">
+
+    <input type="text" name="nama" placeholder="Nama Lengkap" required>
+
+    <input type="text" name="hp" placeholder="Nomor HP" required>
+
+    <input type="text" name="lokasi" placeholder="Lokasi Pengantaran" required>
+
+    <select name="jenis_print" required>
+      <option value="">Pilih Jenis Print</option>
+      <option value="Hitam Putih">Hitam Putih</option>
+      <option value="Warna">Warna</option>
+    </select>
+
+    <input type="file" name="file" required>
+
+    <button type="submit">Kirim Pesanan</button>
+
+  </form>
+
+  <div id="status"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
