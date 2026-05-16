@@ -1,40 +1,117 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PrintGo Campus</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+// your code goes hereconst uploadBtn = document.querySelector(".upload");
+const cancelBtn = document.querySelector(".cancel");
 
-<div class="container">
-  <h1>PrintGo Campus</h1>
-  <p>Jasa Print Online Mahasiswa</p>
+const fileInput = document.querySelector("input[type='file']");
+const uploadArea = document.querySelector(".upload-area");
 
-  <form id="printForm">
+const progressBar = document.querySelector(".progress-bar");
+const floatingUpload = document.querySelector(".floating-upload");
 
-    <input type="text" name="nama" placeholder="Nama Lengkap" required>
+const tabs = document.querySelectorAll(".tabs button");
 
-    <input type="text" name="hp" placeholder="Nomor HP" required>
+uploadBtn.addEventListener("click", () => {
 
-    <input type="text" name="lokasi" placeholder="Lokasi Pengantaran" required>
+  const nama = document.querySelector("input[placeholder='Masukkan nama']").value;
 
-    <select name="jenis_print" required>
-      <option value="">Pilih Jenis Print</option>
-      <option value="Hitam Putih">Hitam Putih</option>
-      <option value="Warna">Warna</option>
-    </select>
+  const hp = document.querySelector("input[placeholder='08xxxxxxxxxx']").value;
 
-    <input type="file" name="file" required>
+  const lokasi = document.querySelector("input[placeholder='Kos, kelas, atau alamat']").value;
 
-    <button type="submit">Kirim Pesanan</button>
+  if(nama === "" || hp === "" || lokasi === ""){
 
-  </form>
+    alert("Lengkapi data terlebih dahulu!");
 
-  <div id="status"></div>
-</div>
+    return;
 
-<script src="script.js"></script>
-</body>
-</html>
+  }
+
+  const orderId = "PG-" + Math.floor(Math.random() * 99999);
+
+  localStorage.setItem(orderId, "Pesanan Sedang Diproses");
+
+  alert(
+    "Pesanan berhasil dikirim!\n\nNomor Pesanan:\n" + orderId
+  );
+
+});
+
+cancelBtn.addEventListener("click", () => {
+
+  location.reload();
+
+});
+
+fileInput.addEventListener("change", () => {
+
+  if(fileInput.files.length > 0){
+
+    const fileName = fileInput.files[0].name;
+
+    document.querySelector(".file-info h4").innerHTML = fileName;
+
+    floatingUpload.style.display = "flex";
+
+    let progress = 0;
+
+    const interval = setInterval(() => {
+
+      progress += 10;
+
+      progressBar.style.width = progress + "%";
+
+      floatingUpload.querySelector("span").innerHTML =
+        progress + "%";
+
+      if(progress >= 100){
+
+        clearInterval(interval);
+
+      }
+
+    }, 150);
+
+  }
+
+});
+
+tabs.forEach(tab => {
+
+  tab.addEventListener("click", () => {
+
+    tabs.forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    tab.classList.add("active");
+
+    if(tab.innerText === "Lacak Pesanan"){
+
+      const nomor = prompt(
+        "Masukkan Nomor Pesanan\nContoh: PG-12345"
+      );
+
+      if(nomor){
+
+        const status = localStorage.getItem(nomor);
+
+        if(status){
+
+          alert(
+            "Status Pesanan:\n\n" + status
+          );
+
+        } else {
+
+          alert(
+            "Nomor pesanan tidak ditemukan"
+          );
+
+        }
+
+      }
+
+    }
+
+  });
+
+});
