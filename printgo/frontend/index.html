@@ -1,117 +1,162 @@
-// your code goes hereconst uploadBtn = document.querySelector(".upload");
-const cancelBtn = document.querySelector(".cancel");
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintGo Express</title>
 
-const fileInput = document.querySelector("input[type='file']");
-const uploadArea = document.querySelector(".upload-area");
+  <link rel="stylesheet" href="style.css">
 
-const progressBar = document.querySelector(".progress-bar");
-const floatingUpload = document.querySelector(".floating-upload");
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-const tabs = document.querySelectorAll(".tabs button");
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-uploadBtn.addEventListener("click", () => {
+<div class="bg"></div>
 
-  const nama = document.querySelector("input[placeholder='Masukkan nama']").value;
+<div class="card">
 
-  const hp = document.querySelector("input[placeholder='08xxxxxxxxxx']").value;
+  <div class="top">
 
-  const lokasi = document.querySelector("input[placeholder='Kos, kelas, atau alamat']").value;
+    <div>
+      <h1>PrintGo Express</h1>
+      <p>Jasa Print Online Antar & Jemput</p>
+    </div>
 
-  if(nama === "" || hp === "" || lokasi === ""){
+    <span class="close">✕</span>
 
-    alert("Lengkapi data terlebih dahulu!");
+  </div>
 
-    return;
+  <div class="tabs">
 
-  }
+    <button class="active">
+      Print Tugas
+    </button>
 
-  const orderId = "PG-" + Math.floor(Math.random() * 99999);
+    <button>
+      Lacak Pesanan
+    </button>
 
-  localStorage.setItem(orderId, "Pesanan Sedang Diproses");
+  </div>
 
-  alert(
-    "Pesanan berhasil dikirim!\n\nNomor Pesanan:\n" + orderId
-  );
+  <div class="upload-area">
 
-});
+    <div class="upload-icon">
+      🖨️
+    </div>
 
-cancelBtn.addEventListener("click", () => {
+    <h3>Upload File Tugas</h3>
 
-  location.reload();
+    <p>Drag & drop file atau pilih dari perangkat</p>
 
-});
+    <label class="browse-btn">
 
-fileInput.addEventListener("change", () => {
+      Pilih File
 
-  if(fileInput.files.length > 0){
+      <input type="file" hidden>
 
-    const fileName = fileInput.files[0].name;
+    </label>
 
-    document.querySelector(".file-info h4").innerHTML = fileName;
+    <span>
+      PDF, DOCX, PPTX maksimal 10MB
+    </span>
 
-    floatingUpload.style.display = "flex";
+  </div>
 
-    let progress = 0;
+  <div class="floating-upload">
 
-    const interval = setInterval(() => {
+    <div class="file-icon red"></div>
 
-      progress += 10;
+    <div class="file-info">
 
-      progressBar.style.width = progress + "%";
+      <h4>Tugas_UAS.pdf</h4>
 
-      floatingUpload.querySelector("span").innerHTML =
-        progress + "%";
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
 
-      if(progress >= 100){
+    </div>
 
-        clearInterval(interval);
+    <span>88%</span>
 
-      }
+  </div>
 
-    }, 150);
+  <div class="input-group">
+    <label>Nama Lengkap</label>
 
-  }
+    <input type="text" placeholder="Masukkan nama">
+  </div>
 
-});
+  <div class="input-group">
+    <label>Nomor WhatsApp</label>
 
-tabs.forEach(tab => {
+    <input type="text" placeholder="08xxxxxxxxxx">
+  </div>
 
-  tab.addEventListener("click", () => {
+  <div class="input-group">
+    <label>Lokasi Antar / Jemput</label>
 
-    tabs.forEach(btn => {
-      btn.classList.remove("active");
-    });
+    <input type="text" placeholder="Kos, kelas, atau alamat">
+  </div>
 
-    tab.classList.add("active");
+  <div class="grid">
 
-    if(tab.innerText === "Lacak Pesanan"){
+    <div class="input-group">
+      <label>Jenis Print</label>
 
-      const nomor = prompt(
-        "Masukkan Nomor Pesanan\nContoh: PG-12345"
-      );
+      <select>
+        <option>Hitam Putih</option>
+        <option>Warna</option>
+      </select>
+    </div>
 
-      if(nomor){
+    <div class="input-group">
+      <label>Jumlah Copy</label>
 
-        const status = localStorage.getItem(nomor);
+      <input type="number" placeholder="1">
+    </div>
 
-        if(status){
+  </div>
 
-          alert(
-            "Status Pesanan:\n\n" + status
-          );
+  <div class="input-group">
+    <label>Catatan Tambahan</label>
 
-        } else {
+    <textarea placeholder="Contoh: jilid, print bolak balik, dll"></textarea>
+  </div>
 
-          alert(
-            "Nomor pesanan tidak ditemukan"
-          );
+  <div class="bottom">
 
-        }
+    <div class="delivery">
 
-      }
+      <div class="avatars">
 
-    }
+        <div class="avatar"></div>
+        <div class="avatar"></div>
+        <div class="avatar"></div>
 
-  });
+      </div>
 
-});
+      <span>Fast Delivery Mahasiswa</span>
+
+    </div>
+
+    <div class="buttons">
+
+      <button class="cancel">
+        Batal
+      </button>
+
+      <button class="upload">
+        Kirim Pesanan
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
